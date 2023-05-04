@@ -89,6 +89,8 @@
   <ItemGroup>
     <Compile Include="MVM\Model\Customer.cs" />
     <Compile Include="MVM\Model\CustomerCatalog.cs" />
+    <Compile Include="MVM\Model\Product.cs" />
+    <Compile Include="MVM\Model\ProductCatalog.cs" />
     <Compile Include="MVM\ViewModel\CustManageModel.cs" />
     <Compile Include="MVM\ViewModel\HomeViewModel.cs" />
     <Compile Include="MVM\ViewModel\MainViewModel.cs" />

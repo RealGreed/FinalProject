@@ -4,88 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FinalProject.Core;
+/***************************************************************
+* Name        : CustomerCatalog
+* Author      : La Gra
+* Created     : 3/30/2023
+***************************************************************/
+/**************************************************************
+* Constructors
+***************************************************************/
+/**************************************************************
+* Name: CustomerCatalog
+* Description: Default no-arg constructor
+* Input parameters: none
+***************************************************************/
 
 namespace FinalProject.MVM.Model
 {
-    class CustomerCatalog
+    public class CustomerCatalog
     {
-        private class Node
+        // list of customer objects
+        public List<Customer> Customers { get; } = new List<Customer>();
+        // singleton instance of catalog
+        public static CustomerCatalog Instance { get; internal set; }
+        // adds customer to the catalog
+        public void AddCustomer(Customer customer)
         {
-            public Customer customer;
-            public Node next;
-
-            public Node(Customer customer)
+            // checks if the customer with the same ID already exists
+            if (Customers.Exists(c => c.getNum() == customer.getNum()))
             {
-                this.customer = customer;
-                next = null;
+                return; // do not add customer if it does
             }
-        }
-        private Node head;
-
-        public CustomerCatalog()
-        {
-            head = null;
+            Customers.Add(customer);// adds customer
         }
 
-        public void AddCustomer(int cNum, string fName, string lName, string pNum, string add, string DOB, int p)
+        // remove customer from the catalog
+        public void RemoveCustomer(Customer customer)
         {
-            Customer newCustomer = new Customer(cNum, fName, lName, pNum, add, DOB, p);
-            Node newNode = new Node(newCustomer);
-            if (head == null)
-            {
-                head = newNode;
-            }
-            else
-            {
-                Node current = head;
-                while (current.next != null)
-                {
-                    current = current.next;
-                }
-                current.next = newNode;
-            }
+            Customers.Remove(customer);
         }
 
-        public void RemoveCustomer(int custID)
+        // displays all the ustomers in the catalog
+        public string DisplayCustomers()
         {
-            if (head == null)
+            String msg = "";
+            if (Customers.Count == 0)
             {
-                Console.WriteLine("No customers in the list.");
-                return;
+                return "No customers in existing database.";
             }
-            if (head.customer.getID() == custID)
+            foreach (Customer customer in Customers)
             {
-                Node temp = head;
-                head = head.next;
-                return;
+                // formats the string and returns it
+                msg += $"Name: {customer.getFName()} {customer.getLName()}, {customer.getPhoneNum()}, {customer.getAddress()}, {customer.getDOB()}" +
+                    $", {customer.getPoints()}\n";
             }
-            Node current = head;
-            while (current.next != null && current.next.customer.getID() != custID)
-            {
-                current = current.next;
-            }
-            if (current.next == null)
-            {
-                Console.WriteLine($"Customer {custID} not found.");
-                return;
-            }
-            current.next = current.next.next;
-        }
-
-
-        public void DisplayCustomers()
-        {
-            if (head == null)
-            {
-                Console.WriteLine("No customers in the list.");
-                return;
-            }
-            Node current = head;
-            while (current != null)
-            {
-                Console.WriteLine($"Name: {current.customer.getFName()} {current.customer.getLName()}, Phone Number: {current.customer.getPhoneNum()}, Address: {current.customer.getAddress()}, Date of Birth: {current.customer.getDOB()}");
-                current = current.next;
-            }
+            return msg;
         }
     }
 }

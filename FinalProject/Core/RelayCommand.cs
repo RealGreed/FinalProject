@@ -5,6 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+/***************************************************************
+* Name        : RelayCommand
+* Author      : La Gra
+* Created     : 5/1/2023
+* Description : Used to handle view switching between the different view models
+***************************************************************/
+
 namespace FinalProject.Core
 {
     class RelayCommand : ICommand
