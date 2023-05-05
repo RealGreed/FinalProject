@@ -40,6 +40,7 @@ namespace FinalProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        // creates an instance of the customer and product catalog(will not exist outside the app running)
         public static CustomerCatalog customers = CustomerCatalog.Instance;
         public static ProductCatalog products = ProductCatalog.Instance;
         public MainWindow()
@@ -48,7 +49,7 @@ namespace FinalProject
             customers = new CustomerCatalog();
             products = new ProductCatalog();
     }
-
+        // handler for exit button
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
